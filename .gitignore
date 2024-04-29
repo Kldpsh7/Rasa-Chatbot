@@ -1,0 +1,6 @@
+.env
+data/psqldb/
+rasa-bot/models/
+rasa-bot/.config/
+rasa-bot/.keras/
+rasa-bot/.rasa/

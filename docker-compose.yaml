@@ -1,0 +1,81 @@
+services:
+  # Rasa chatbot - CLI
+  rasa:
+    image: rasa/rasa:3.6.0-full
+    ports:
+      - 6066:5005
+    volumes:
+      - ./rasa-bot/:/app/:rw
+    command:
+      - run
+      - --enable-api
+      - --cors
+      - "*"
+      # - --endpoint
+      # - endpoints_psql_tracker.yml
+    depends_on:
+      - action_server
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - SQLALCHEMY_SILENCE_UBER_WARNING=1
+    networks:
+      rasa-bot_network:
+
+  psqldb:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_DB=${DB_NAME}
+      - TZ='GMT+5:30'
+      - PGTZ='GMT+5:30'
+    volumes:
+      - ./data/psqldb:/var/lib/postgresql/data
+    networks:
+      rasa-bot_network:
+
+  action_server:
+    build:
+      context: ./actions/
+    ports:
+      - "5055:5055"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DEBUG=True
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+    volumes:
+      - ./actions/:/app/actions:ro
+    networks:
+      rasa-bot_network:
+    depends_on:
+      - redis
+
+  redis:
+    image: redis
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes --appendfsync everysec --save 60 1
+    ports:
+      - "6379:6379"
+    networks:
+      rasa-bot_network:
+
+networks:
+  rasa-bot_network:
+    driver: bridge
+
+volumes:
+  redis-data:
+    driver: local
