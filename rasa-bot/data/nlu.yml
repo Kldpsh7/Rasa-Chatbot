@@ -94,3 +94,10 @@ nlu:
   examples: |
     - print pattern
     - print the pattern
+
+- intent: want_buttons
+  examples: |
+    - send buttons
+    - give me buttons
+    - i want buttons
+    - buttons

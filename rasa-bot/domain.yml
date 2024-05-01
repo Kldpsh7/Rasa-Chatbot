@@ -9,6 +9,7 @@ intents:
   - mood_unhappy
   - bot_challenge
   - print_pattern
+  - want_buttons
 
 responses:
   utter_greet:
@@ -36,3 +37,4 @@ session_config:
 
 actions:
   - action_print_pattern
+  - action_send_buttons

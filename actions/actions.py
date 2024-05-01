@@ -44,3 +44,32 @@ class ActionPrintPattern(Action):
         dispatcher.utter_message(text=pattern)
 
         return []
+    
+class ActionTestButtons(Action):
+
+    def name(self) -> Text:
+        return "action_send_buttons"
+    
+    def run(self, dispatcher: CollectingDispatcher, tracker:Tracker, domain: Dict[Text,Any]) -> List[Dict[Text,Any]]:
+
+        buttons=[
+            {
+                "title":"Say Hi",
+                "payload":"Hi"
+            },
+            {
+                "title":"Bot Challange",
+                "payload":"Are you a bot?"
+            },
+            {
+                "title":"Say Bye",
+                "payload":"bye"
+            }
+        ]
+
+        dispatcher.utter_message(
+            text="Here are some buttons to test things",
+            buttons = buttons
+        )
+
+        return []

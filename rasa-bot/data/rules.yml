@@ -16,3 +16,8 @@ rules:
   steps:
     - intent: print_pattern
     - action: action_print_pattern
+
+- rule: Send buttons when user want buttons
+  steps:
+    - intent: want_buttons
+    - action: action_send_buttons
