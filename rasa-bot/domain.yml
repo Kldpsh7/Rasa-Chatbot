@@ -10,6 +10,7 @@ intents:
   - bot_challenge
   - print_pattern
   - want_buttons
+  - send_carousel
 
 responses:
   utter_greet:
@@ -17,7 +18,7 @@ responses:
 
   utter_cheer_up:
   - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
+    image: "https://preview.redd.it/send-every-single-cat-meme-you-have-got-please-i-need-them-v0-h5bgitnm8m7b1.jpg?auto=webp&s=607eb86b774c54c6bfa61932f877530e8aea5fb6"
 
   utter_did_that_help:
   - text: "Did that help you?"
@@ -38,3 +39,4 @@ session_config:
 actions:
   - action_print_pattern
   - action_send_buttons
+  - action_send_carousel

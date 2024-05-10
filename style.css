@@ -1,0 +1,22 @@
+/* .rw-widget-container	The div containing the chatbox of the default version */
+/* .rw-widget-embedded	div of the embedded chatbox (using embedded prop) */
+/* .rw-full-screen	div of the fullscreen chatbox (using fullScreenMode prop) */
+/* .rw-conversation-container	the parent div containing the header, message-container and sender */
+/* .rw-messages-container	the central area where the messages appear */
+/* .rw-sender	div of the bottom area which prompts user input */
+/* .rw-new-message	the text input element of sender */
+/* .rw-send	the send icon element of sender */
+
+/*div of the top area with the chatbox header */
+.rw-conversation-container .rw-header{	
+    background-color: rgb(40, 42, 44);
+    color: white;
+}
+/* .rw-title	the title element of the header */
+/* .rw-close-button	the close icon of the header */
+/* .rw-loading	the loading status element of the header */
+/* .rw-message	the boxes holding the messages of client and response */
+/* .rw-replies	the area that gives quick reply options */
+/* .rw-snippet	a component for describing links */
+/* .rw-imageFrame	a container for sending images */
+/* .rw-videoFrame a container for sending video */

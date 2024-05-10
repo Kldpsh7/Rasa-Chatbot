@@ -37,9 +37,9 @@ class ActionPrintPattern(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
         pattern=""
-        for i in range(5):
-            pattern+="*"*i
-            pattern+="\n"
+        for i in range(1,6):
+            pattern+="*"*i+"\n"
+        print(pattern)
 
         dispatcher.utter_message(text=pattern)
 
@@ -64,12 +64,102 @@ class ActionTestButtons(Action):
             {
                 "title":"Say Bye",
                 "payload":"bye"
-            }
+            },
+            {
+                "title":"Memes?",
+                "payload":"/send_carousel"
+            },
         ]
 
         dispatcher.utter_message(
             text="Here are some buttons to test things",
             buttons = buttons
         )
+
+        return []
+    
+class ActionSendCarousel(Action):
+
+    def name(self) -> Text:
+        return "action_send_carousel"
+    
+    def run(self, dispatcher: CollectingDispatcher, tracker:Tracker, domain: Dict[Text,Any]) -> List[Dict[Text,Any]]:
+
+        test_carousel = {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "Card 1",
+                        "subtitle": "This is subtitle",
+                        "image_url": "https://cdn4.sharechat.com/MEEMSOFWORLD_2564253c_1625799332793_sc_cmprsd_40.jpg?tenant=sc&referrer=tag-service&f=rsd_40.jpg",
+                        "buttons": [
+                            {
+                                "title": "Bigger Image",
+                                "url": "https://cdn4.sharechat.com/MEEMSOFWORLD_2564253c_1625799332793_sc_cmprsd_40.jpg?tenant=sc&referrer=tag-service&f=rsd_40.jpg",
+                                "type": "web_url"
+                            },
+                            {
+                                "title": "See Dev",
+                                "url": "https://github.com/Kldpsh7",
+                                "type": "web_url"
+                            },
+                            {
+                                "title": "Say Hi",
+                                "type": "postback",
+                                "payload": "/greet"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Second Card",
+                        "subtitle": "This is subtitle",
+                        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlMHXnQMrq5sxFH-NP-umKcb-rseVn_6lmUQ&usqp=CAU",
+                        "buttons": [
+                            {
+                                "title": "Bigger Image",
+                                "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlMHXnQMrq5sxFH-NP-umKcb-rseVn_6lmUQ&usqp=CAU",
+                                "type": "web_url"
+                            },
+                            {
+                                "title": "See Dev",
+                                "url": "https://github.com/Kldpsh7",
+                                "type": "web_url"
+                            },
+                            {
+                                "title": "Send buttons",
+                                "type": "postback",
+                                "payload": "send buttons"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Third Card",
+                        "subtitle": "This is subtitle",
+                        "image_url": "https://static.wikia.nocookie.net/f033fd90-2c9c-4a98-a05b-d99bf915344b/scale-to-width/755",
+                        "buttons": [
+                            {
+                                "title": "Bigger Image",
+                                "url": "https://static.wikia.nocookie.net/f033fd90-2c9c-4a98-a05b-d99bf915344b/scale-to-width/755",
+                                "type": "web_url"
+                            },
+                            {
+                                "title": "See Dev",
+                                "url": "https://github.com/Kldpsh7",
+                                "type": "web_url"
+                            },
+                            {
+                                "title": "Bot challange",
+                                "type": "postback",
+                                "payload": "are you a bot?"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+
+        dispatcher.utter_message(attachment=test_carousel)
 
         return []

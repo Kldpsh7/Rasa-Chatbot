@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RASA-BOT</title>
+    <link rel="stylesheet" type="text/css" href="./style.css"/>
 </head>
 <body>
     <script>!(function () {
@@ -20,6 +21,12 @@
                 customData: { language: "en" },
                 socketUrl: "http://localhost:6066",
                 // add other props here
+                title:"Welcome to the Rasa-Bot",
+                subtitle:"How can I help you?",
+                inputTextFieldHint:"Type Here...",
+                showFullScreenButton:false,
+                displayUnreadCount:true,
+                showMessageDate:true,
               },
               null
             );
@@ -27,5 +34,12 @@
           t.insertBefore(e, t.firstChild);
       })();
       </script>
+      <style>
+        .rw-conversation-container .rw-header{	
+          background-color: rgb(40, 42, 44);
+          color: white;
+        }
+
+      </style>
 </body>
 </html>

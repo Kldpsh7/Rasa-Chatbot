@@ -21,3 +21,8 @@ rules:
   steps:
     - intent: want_buttons
     - action: action_send_buttons
+
+- rule: Send a carousel whenever user wants it
+  steps:
+    - intent: send_carousel
+    - action: action_send_carousel
