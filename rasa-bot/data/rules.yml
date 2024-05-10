@@ -26,3 +26,8 @@ rules:
   steps:
     - intent: send_carousel
     - action: action_send_carousel
+
+- rule: Generate response from LLM when nlu fallback
+  steps:
+  - intent: nlu_fallback
+  - action: action_nlu_fallback

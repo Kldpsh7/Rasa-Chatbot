@@ -12,6 +12,9 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 
+import requests
+from os import environ
+import json
 
 class ActionHelloWorld(Action):
 
@@ -89,6 +92,10 @@ class ActionSendCarousel(Action):
             "type": "template",
             "payload": {
                 "template_type": "generic",
+                "dims":{
+                    "width":200,
+                    "height":200
+                },
                 "elements": [
                     {
                         "title": "Card 1",
@@ -161,5 +168,38 @@ class ActionSendCarousel(Action):
         }
 
         dispatcher.utter_message(attachment=test_carousel)
+
+        return []
+    
+class ActionTestButtons(Action):
+
+    def name(self) -> Text:
+        return "action_nlu_fallback"
+    
+    def run(self, dispatcher: CollectingDispatcher, tracker:Tracker, domain: Dict[Text,Any]) -> List[Dict[Text,Any]]:
+
+        ollama_host = environ.get("OLLAMA_HOST")
+
+        user_message = tracker.latest_message.get("text")
+        print(f"User's latest message==============>{user_message,}")
+
+        data={
+            "model":"qwen:0.5b",
+            "prompt":user_message,
+            "stream":False,
+            "keep_alive":"2h"
+        }
+
+        # print((requests.get("http://ollama:3333")).json())
+        try:
+            response = requests.post(f"{ollama_host}/api/generate/",data=json.dumps(data),headers={"Content-Type": "application/json"})
+            json_response = response.json()
+            print(f"Json response from llm==============>{json_response}")
+        except Exception as e:
+            print("Excecption in request",e)
+
+        dispatcher.utter_message(
+            text=json_response.get("response") or "hmmmm",
+        )
 
         return []

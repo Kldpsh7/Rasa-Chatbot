@@ -40,3 +40,4 @@ actions:
   - action_print_pattern
   - action_send_buttons
   - action_send_carousel
+  - action_nlu_fallback

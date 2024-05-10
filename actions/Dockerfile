@@ -13,6 +13,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apt update && apt install tzdata wkhtmltopdf -y
+RUN pip install --upgrade pip
 
 ENV TZ="Asia/Calcutta"
 
